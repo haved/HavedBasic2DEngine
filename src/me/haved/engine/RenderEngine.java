@@ -169,6 +169,31 @@ public class RenderEngine
 		glEnd();
 	}
 	
+	public static void pushMatrix()
+	{
+		glPushMatrix();
+	}
+	
+	public static void popMatrix()
+	{
+		glPopMatrix();
+	}
+	
+	public static void translate(float x, float y, float z)
+	{
+		glTranslatef(x, y, z);
+	}
+	
+	public static void rotate(float angle, float x, float y, float z)
+	{
+		glRotatef(angle, x, y, z);
+	}
+	
+	public static void scale(float x, float y, float z)
+	{
+		glScalef(x, y, z);
+	}
+	
 	public static int getCanvasWidth()
 	{
 		return canvasWidth;
