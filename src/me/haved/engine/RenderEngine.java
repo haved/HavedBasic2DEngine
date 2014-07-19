@@ -2,16 +2,22 @@ package me.haved.engine;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Font;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 public class RenderEngine
 {
 	private static int canvasWidth, canvasHeight;
 	private static int windowWidth, windowHeight;
 	private static float canvasScaleX, canvasScaleY;
+	
+	private static TrueTypeFont font;
 	
 	/**
 	 * Makes a OpenGL window with mouse and keyboard input
@@ -65,6 +71,8 @@ public class RenderEngine
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		font = new TrueTypeFont(new Font("Dialog", Font.PLAIN, 20), true);
 	}
 	
 	public static void disposeGLWindow()
@@ -137,6 +145,7 @@ public class RenderEngine
 	
 	public static void fillRectangleWithTexture(float x, float y, float width, float height, float tx, float ty, float tx2, float ty2)
 	{
+		ty+=0.005f;
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		{
@@ -154,19 +163,13 @@ public class RenderEngine
 	
 	public static void fillRectangleWithTexture(float width, float height, float tx, float ty, float tx2, float ty2)
 	{
+		fillRectangleWithTexture(0, 0, width, height, tx, ty, tx2, ty2);
+	}
+	
+	public static void drawText(String text, float x, float y, Color color)
+	{
 		glEnable(GL_TEXTURE_2D);
-		glBegin(GL_QUADS);
-		{
-			glTexCoord2f(tx , ty);
-			glVertex2f(0    , 0);
-			glTexCoord2f(tx2, ty);
-			glVertex2f(width, 0);
-			glTexCoord2f(tx2, ty2);
-			glVertex2f(width, height);
-			glTexCoord2f(tx , ty2);
-			glVertex2f(0    , height);
-		}
-		glEnd();
+		font.drawString(x, y, text, color);
 	}
 	
 	public static void pushMatrix()
@@ -212,5 +215,15 @@ public class RenderEngine
 	public static int getWindowHeight()
 	{
 		return windowHeight;
+	}
+	
+	public static float scaleWindowPointX(float windowPoint)
+	{
+		return windowPoint / canvasScaleX;
+	}
+	
+	public static float scaleWindowPointY(float windowPoint)
+	{
+		return windowPoint / canvasScaleY;
 	}
 }

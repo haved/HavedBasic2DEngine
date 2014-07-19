@@ -9,4 +9,16 @@ public class GameSettings
 	
 	public boolean vsync = true;
 	public int sychFPS = 60;
+	
+	public String title = "Game";
+	
+	public GameSettings()
+	{
+		
+	}
+	
+	public GameSettings(String title)
+	{
+		this.title = title;
+	}
 }
