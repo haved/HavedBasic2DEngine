@@ -145,7 +145,10 @@ public class RenderEngine
 	
 	public static void fillRectangleWithTexture(float x, float y, float width, float height, float tx, float ty, float tx2, float ty2)
 	{
+		tx+=0.005f;
+		tx2*=0.990f;
 		ty+=0.005f;
+		ty2*=0.990f;
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		{
