@@ -12,8 +12,10 @@ public class Time
 	
 	public static void next()
 	{
-		deltaTime = (System.currentTimeMillis() - startTime)*0.001f;
+		float newDeltaTime = (System.currentTimeMillis() - startTime)*0.001f;
 		startTime = System.currentTimeMillis();
+		if(newDeltaTime < 0.1f)
+			deltaTime = newDeltaTime;
 	}
 	
 	public static float delta()
